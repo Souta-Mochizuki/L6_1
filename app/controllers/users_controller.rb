@@ -10,8 +10,10 @@ class UsersController < ApplicationController
   def create 
     @user = User.new(uid: params[:user][:uid],password: params[:user][:password],password_confirmation: params[:user][:password_confirmation])
     if @user.save
+      flash[:notice] = "ユーザーを追加しました"
       redirect_to users_path
     else
+      flash[:notice] = "ユーザーの追加に失敗しました"
       render 'new'
     end
   end
@@ -19,6 +21,7 @@ class UsersController < ApplicationController
   def destroy
     user = User.find(params[:id])
     user.destroy
+    flash[:notice] = "ユーザーを削除しました"
     redirect_to users_path
   end
 end

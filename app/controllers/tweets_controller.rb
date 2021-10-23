@@ -12,7 +12,7 @@ class TweetsController < ApplicationController
     user = User.find_by(uid: current_user.uid)
     @tweet = Tweet.new(message: params[:tweet][:message], user_id: user.id)
     if @tweet.save
-      #TODO: ツイートが成功したことをユーザに知らせる
+      flash[:notice] = "ツイートしました"
       redirect_to root_path
     else
       render 'new'
@@ -22,6 +22,7 @@ class TweetsController < ApplicationController
   def destroy
     tweet = Tweet.find(params[:id])
     tweet.destroy
+    flash[:notice] = "ツイートを削除しました"
     redirect_to root_path
   end
 end
